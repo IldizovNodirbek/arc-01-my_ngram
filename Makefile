@@ -1,19 +1,16 @@
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+all : $(TARGET)
+$(TARGET) : $(OBJ)
+	gcc $(CFLAGS) -o $(TARGET) $(OBJ)
 
-TARGET = character_count
-SRCS = main.c my_ngram.c
-OBJS = $(SRCS:.c=.o)
 
-.PHONY: all clean
+$(OBJ) : $(SRC)
+	gcc $(CFLAGS) -c $(SRC)
 
-all: $(TARGET)
-
-$(TARGET): $(OBJS)
-  $(CC) $(CFLAGS) -o $@ $^
-
-%.o: %.c my_ngram.h
-  $(CC) $(CFLAGS) -c $<
 
 clean:
-  rm -f $(TARGET) $(OBJS)
+	rm -f *.o
+
+	rm -f $(TARGET)
+
+
+re: fclean all
