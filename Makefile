@@ -1,16 +1,27 @@
-all : $(TARGET)
-$(TARGET) : $(OBJ)
-	gcc $(CFLAGS) -o $(TARGET) $(OBJ)
+TARGET = my_ngram
+OBJ = my_ngram.o
+SRC = my_ngram.c
+CFLAGS = -Wall -Wextra -Werror
+CC = gcc
 
+.PHONY: all clean fclean re
 
-$(OBJ) : $(SRC)
-	gcc $(CFLAGS) -c $(SRC)
+all: $(TARGET)
+
+$(TARGET): $(OBJ)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJ)
+
+$(OBJ): $(SRC)
+	$(CC) $(CFLAGS) -c $(SRC) 
 
 
 clean:
-	rm -f *.o
+	rm -f $(OBJ) 
 
-	rm -f $(TARGET)
+fclean: clean
+	rm -f $(TARGET) *.exe
+
+re: clean all
 
 
-re: fclean all
+.PHONY: all clean fclean re
